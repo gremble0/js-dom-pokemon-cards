@@ -8,11 +8,18 @@ function createH2(header) {
   return h2;
 }
 
-function createImg(src) {
+function createImg(sprites) {
   const img = document.createElement("img");
+  let curImg = sprites.front_default;
   img.setAttribute("class", "card--img");
-  img.setAttribute("src", src);
+  img.setAttribute("src", curImg);
   img.setAttribute("width", "256");
+
+  img.addEventListener("click", (_) => {
+    if (curImg === sprites.front_default) curImg = sprites.back_default;
+    else curImg = sprites.front_default;
+    img.setAttribute("src", curImg);
+  });
 
   return img;
 }
@@ -51,7 +58,7 @@ function createPokemon(pokemon) {
   element.setAttribute("class", "card");
 
   element.appendChild(createH2(pokemon.name));
-  element.appendChild(createImg(pokemon.sprites.front_default));
+  element.appendChild(createImg(pokemon.sprites));
   element.appendChild(createStats(pokemon.stats));
   element.appendChild(createGameInfo(pokemon.game_indices));
 
