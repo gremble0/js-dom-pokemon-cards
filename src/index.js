@@ -33,17 +33,31 @@ function createStats(stats) {
   return statsElement;
 }
 
-function createPokemonElement(pokemon) {
+function createGameInfo(gameIndicies) {
+  const gameInfo = document.createElement("ul");
+  gameInfo.setAttribute("class", "card--text");
+
+  gameIndicies.forEach((gameIndex) => {
+    const gameInfoI = document.createElement("li");
+    gameInfoI.innerHTML = gameIndex.version.name;
+    gameInfo.appendChild(gameInfoI);
+  });
+
+  return gameInfo;
+}
+
+function createPokemon(pokemon) {
   const element = document.createElement("li");
   element.setAttribute("class", "card");
 
   element.appendChild(createH2(pokemon.name));
   element.appendChild(createImg(pokemon.sprites.front_default));
   element.appendChild(createStats(pokemon.stats));
+  element.appendChild(createGameInfo(pokemon.game_indices));
 
   return element;
 }
 
 data.forEach((pokemon) => {
-  cards.appendChild(createPokemonElement(pokemon));
+  cards.appendChild(createPokemon(pokemon));
 });
